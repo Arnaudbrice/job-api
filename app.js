@@ -57,30 +57,6 @@ app.use(helmet());
 app.use(cors());
 app.use(xss());
 
-//********** set up route specific middleware **********
-// set up authRouter as middleware to handle all http requests starting with  "/api/v1/auth"
-app.use("/api/v1/auth", authRouter);
-// set up jobRouter and authenticateUser as middleware to handle all http requests to path starting with  "/api/v1/jobs"
-app.use("/api/v1/jobs", authenticateUser, jobRouter);
-
-//******set up global middleware to handle error ******
-app.use(notFoundMiddleware);
-app.use(errorHandlerMiddleware);
-
-// routes
-/**
- * Defines a route handler for the GET method on the path '/'.
- * This handler sends a response with a heading and a link to the API documentation.
- *
- * @name home
- * @path {GET} /
- * @response {string} HTML string - A heading with the text 'jobs API' and a link to '/api-docs'.
- */
-app.get("/", (req, res) => {
-  res.send("hover-bg-yellow");
-  /*  res.send("<h1>jobs API</h1><a href='/api-docs'>Documentation</a>"); */
-});
-
 //******  Sets up the Swagger UI express middleware for serving API documentation. ******
 /**
  * Sets up the Swagger UI express middleware for serving API documentation.
@@ -93,6 +69,28 @@ app.get("/", (req, res) => {
  * @param {object} swaggerDocument - The Swagger document (JSON) for setting up the Swagger UI.
  */
 app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerDocument));
+
+/**
+ * Defines a route handler for the GET method on the path '/'.
+ * This handler sends a response with a heading and a link to the API documentation.
+ *
+ * @name home
+ * @path {GET} /
+ * @response {string} HTML string - A heading with the text 'jobs API' and a link to '/api-docs'.
+ */
+app.get("/", (req, res) => {
+  res.send("<h1>jobs API</h1><a href='/api-docs'>Documentation</a>");
+});
+
+//********** set up route specific middleware **********
+// set up authRouter as middleware to handle all http requests starting with  "/api/v1/auth"
+app.use("/api/v1/auth", authRouter);
+// set up jobRouter and authenticateUser as middleware to handle all http requests to path starting with  "/api/v1/jobs"
+app.use("/api/v1/jobs", authenticateUser, jobRouter);
+
+//******set up global middleware to handle error ******
+app.use(notFoundMiddleware);
+app.use(errorHandlerMiddleware);
 
 const port = process.env.PORT || 10000;
 
