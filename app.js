@@ -77,7 +77,8 @@ app.use(errorHandlerMiddleware);
  * @response {string} HTML string - A heading with the text 'jobs API' and a link to '/api-docs'.
  */
 app.get("/", (req, res) => {
-  res.send("<h1>jobs API</h1><a href='/api-docs'>Documentation</a>");
+  res.send("hover-bg-yellow");
+  /*  res.send("<h1>jobs API</h1><a href='/api-docs'>Documentation</a>"); */
 });
 
 //******  Sets up the Swagger UI express middleware for serving API documentation. ******
@@ -93,7 +94,7 @@ app.get("/", (req, res) => {
  */
 app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 10000;
 
 const start = async () => {
   try {
