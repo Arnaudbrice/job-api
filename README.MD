@@ -46,13 +46,13 @@ Email Validation Regex
 
 - handle Validation Errors
 - handle Duplicate key Errors (Email)
-- handle Cast Error
+- handleCast Error
 
 #### Security
 
 - helmet
 - cors
-- xss-clean (sanitize user input)
+- xss-clean
 - express-rate-limit
 
 Swagger UI
